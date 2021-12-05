@@ -134,7 +134,7 @@ Number of Hours of Sunlight Per Day: <br>
 """)
 
 #humidity range +-2 hours ou're fine, else warning
-if isinstance(s3,int) and (humidity > (s3+2) or humidity < (s3-2)):
+if isinstance(s3,int) and (light > (s3+2) or light < (s3-2)):
   print("""
   <div style = "width:50%;height:300px; float:left; background-color:darkseagreen; text-align:center;padding-top:50px">
   <h3> Light Recieved </h3>
