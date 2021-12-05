@@ -24,9 +24,9 @@ light = int(a[3]['field3'])
 
 #get data from html form 
 data = cgi.FieldStorage()
-s1 = data.getvalue('temp') #value is typed in 
-s2 = data.getvalue('humidity') #value is typed in 
-s3 = data.getvalue('light') #value is typed in 
+s1 = int(data.getvalue('temp')) #value is typed in 
+s2 = int(data.getvalue('humidity')) #value is typed in 
+s3 = int(data.getvalue('light')) #value is typed in 
 s4 = data.getvalue('plantneeds') #value is submit
 #s5 = data.getvalue('refresh') #value is refresh
 s5 = data.getvalue('water') #value is water
