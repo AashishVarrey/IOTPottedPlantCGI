@@ -18,21 +18,36 @@ for key in url:
   request = requests.get(url[key]).text
   a[key] = json.loads(request)
 
-temp = int(a[1]['field1'])
+
+temp = int(a[1]['field1']) 
 humidity = int(a[2]['field2'])
 light = int(a[3]['field3'])
 
+
 #get data from html form 
 data = cgi.FieldStorage()
-s1 = int(data.getvalue('temp')) #value is typed in 
-s2 = int(data.getvalue('humidity')) #value is typed in 
-s3 = int(data.getvalue('light')) #value is typed in 
-s4 = data.getvalue('plantneeds') #value is submit
-#s5 = data.getvalue('refresh') #value is refresh
-s5 = data.getvalue('water') #value is water
-
+try:
+    s1 = int(data.getvalue('temp')) #value is typed in 
+except:
+    s1 = None
+try:
+    s2 = int(data.getvalue('humidity')) #value is typed in
+except:
+    s2 = None
+try:
+    s3 = int(data.getvalue('light')) #value is typed in 
+except:
+    s3 = None
+try:
+    s4 = data.getvalue('plantneeds') #value is submit
+except:
+    s4 = None
+try:
+    s5 = data.getvalue('water') #value is water
+except:
+    s5 = "notwater"
 #write if plant needs to be manually watered to text file
-with open('IOTFinal','w') as f:
+with open('IOTFinal.txt','w') as f:
   json.dump(s5,f)
 
 #generate html webpage
@@ -46,7 +61,7 @@ print("""
 body {
 font-family:Arial;
 color:white;
-background-color:darkseagreen
+background-color: darkseagreen
 }
 /*to center image*/
 img {
@@ -54,8 +69,8 @@ display: block;
 margin-top: auto;
 margin-left: auto;
 margin-right: auto;
-width: 35%;
-height: 70%
+width: 200px;
+height: 80%
 }
 h3 {
 text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
@@ -75,18 +90,15 @@ if isinstance(s1,int) and (temp > (s1+10) or temp < (s1-10)):
   <div style = "width:50%;height:300px; float:left; background-color:darkseagreen; text-align:center">
   <h3> Temperature </h3>
   <h4 style ="color:red"> WARNING </h4>
-  <!-- Add following line in cgi code if necessary
-  <p style="color:red"> WARNING </p> -->
-  <iframe height="230" style="border: 10px solid DarkGreen;width:75%" src="https://thingspeak.com/channels/1587925/widgets/388191"></iframe>
-  </div> 
+  <iframe width="300" height="230" style="border: 10px solid DarkGreen;" src="https://thingspeak.com/channels/1587925/widgets/388191"></iframe>
+  </div>  
   """)
 else:
   print("""
   <div style = "width:50%;height:300px; float:left; background-color:darkseagreen; text-align:center">
   <h3> Temperature </h3>
-  <!-- Add following line in cgi code if necessary
-  <p style="color:red"> WARNING </p> -->
-  <iframe height="230" style="border: 10px solid DarkGreen;width:75%" src="https://thingspeak.com/channels/1587925/widgets/388191"></iframe>
+  <!--<h4 style ="color:red"> WARNING </h4> -->
+  <iframe width="300" height="230" style="border: 10px solid DarkGreen;" src="https://thingspeak.com/channels/1587925/widgets/388191"></iframe>
   </div> 
   """)
 
@@ -97,24 +109,21 @@ print("""
 </div> 
 """)
 
-#humidity range +- 20% you're fine, else warning
-if isinstance(s2,int) and (humidity > (s2+20) or humidity < (s2-20)):
+#humidity range +- 10% you're fine, else warning
+if isinstance(s2,int) and (humidity > (s2+10) or humidity < (s2-10)):
   print("""
   <div style = "width:50%;height:300px; float:left; background-color:darkseagreen; text-align:center;padding-top:50px">
   <h3> Humidity </h3>
-  <h4 style ="color:red"> WARNING </h4>      
-  <!-- Add following line in cgi code if necessary 
-  <p style="color:red"> WARNING </p> -->
-  <iframe height="230" style="border: 10px solid DarkGreen;width:75%" src="https://thingspeak.com/channels/1587925/widgets/388202"></iframe>
+  <h4 style ="color:red"> WARNING </h4>  
+  <iframe width="300" height="230" style="border: 10px solid DarkGreen;" src="https://thingspeak.com/channels/1587925/widgets/388202"></iframe>  
   </div>
   """)
 else:
   print("""
   <div style = "width:50%;height:300px; float:left; background-color:darkseagreen; text-align:center;padding-top:50px">
-  <h3> Humidity </h3>      
-  <!-- Add following line in cgi code if necessary 
-  <p style="color:red"> WARNING </p> -->
-  <iframe height="230" style="border: 10px solid DarkGreen;width:75%" src="https://thingspeak.com/channels/1587925/widgets/388202"></iframe>
+  <h3> Humidity </h3>
+  <!--<h4 style ="color:red"> WARNING </h4>   -->
+  <iframe width="300" height="230" style="border: 10px solid DarkGreen;" src="https://thingspeak.com/channels/1587925/widgets/388202"></iframe>  
   </div>
   """)
 
@@ -133,24 +142,21 @@ Number of Hours of Sunlight Per Day: <br>
 </div>
 """)
 
-#humidity range +-2 hours ou're fine, else warning
-if isinstance(s3,int) and (light > (s3+2) or light < (s3-2)):
+#light range >= to requirements you're fine, else warning
+if isinstance(s3,int) and (light < s3):
   print("""
   <div style = "width:50%;height:300px; float:left; background-color:darkseagreen; text-align:center;padding-top:50px">
   <h3> Light Recieved </h3>
-  <h4 style ="color:red"> WARNING </h4> 
-  <!-- Add following line in cgi code if necessary 
-  <p style="color:red"> WARNING </p> -->
-  <iframe height="230" style="border:10px solid DarkGreen;width:75%" src="https://thingspeak.com/channels/1587925/widgets/391046"></iframe>
+  <h4 style ="color:red"> WARNING </h4>
+  <iframe width="300" height="230" style="border: 10px solid DarkGreen;" src="https://thingspeak.com/channels/1587925/widgets/391046"></iframe>
   </div>
   """)
 else:
   print("""
   <div style = "width:50%;height:300px; float:left; background-color:darkseagreen; text-align:center;padding-top:50px">
   <h3> Light Recieved </h3>
-  <!-- Add following line in cgi code if necessary 
-  <p style="color:red"> WARNING </p> -->
-  <iframe height="230" style="border:10px solid DarkGreen;width:75%" src="https://thingspeak.com/channels/1587925/widgets/391046"></iframe>
+  <!--<h4 style ="color:red"> WARNING </h4>-->
+  <iframe width="300" height="230" style="border: 10px solid DarkGreen;" src="https://thingspeak.com/channels/1587925/widgets/391046"></iframe>
   </div>
   """)  
 
@@ -158,21 +164,20 @@ print("""
 <div style = "width:50%;height:300px;float:left; background-color:darkseagreen; text-align:center;padding-top:50px">
 <h3> Press to Water Plant </h3>
 <form action = "/cgi-bin/final.py" method="POST">
-<input type="image"
-src="https://www.freepnglogos.com/uploads/water-drop-png/water-drop-png-image-water-droplet-pin-club-penguin-wiki-fandom-21.png"alt="submit" name="water" value="water" style="height:150px;width:75px;transform: translateY(30%)">
+<input type="submit" name="water" value = "Water Plant" style="padding: 30px 45px; background-color:MidnightBlue; color:white">
 </form>
 </div>
 
 <div style = "width:100%; float:left; background-color:darkseagreen; text-align:center;padding-top:70px">
-<iframe height="260" style="border: 10px solid DarkGreen;;width:50%" src="https://thingspeak.com/channels/1587925/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Temp+Over+Time&type=line"></iframe>
+<iframe width="450" height="260" style="border: 10px solid DarkGreen;" src="https://thingspeak.com/channels/1587925/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Temp+Over+Time&type=line&xaxis=Time&yaxis=%C2%B0Celsius"></iframe>
 </div>
 
 <div style = "width:100%; float:left; background-color:darkseagreen; text-align:center;padding-top:10px">
-<iframe height="260" style="border: 10px solid DarkGreen; width:50%"src="https://thingspeak.com/channels/1587925/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Humidity+over+Time&type=line"></iframe>
+<iframe width="450" height="260" style="border: 10px solid DarkGreen;" src="https://thingspeak.com/channels/1587925/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Humidity+over+Time&type=line&xaxis=Time&yaxis=%25+Humidity"></iframe>
 </div>
 
 <div style = "width:100%; float:left; background-color:darkseagreen; text-align:center;padding-top:10px">
-<iframe height="260" style="border: 1px solid #cccccc;width:50%;border: 10px solid DarkGreen;" src="https://thingspeak.com/channels/1587925/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Light+Over+Time&type=line"></iframe>
+<iframe width="450" height="260" style="border: 10px solid DarkGreen;" src="https://thingspeak.com/channels/1587925/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Light+Over+Time&type=line&xaxis=Time&yaxis=Light+Received+in+Hours"></iframe>
 </div>
 
 </div>
