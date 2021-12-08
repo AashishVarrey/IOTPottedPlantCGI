@@ -27,15 +27,15 @@ light = float(a[3]['field3'])
 #get data from html form 
 data = cgi.FieldStorage()
 try:
-    s1 = int(data.getvalue('temp')) #value is typed in 
+    s1 = float(data.getvalue('temp')) #value is typed in 
 except:
     s1 = None
 try:
-    s2 = int(data.getvalue('humidity')) #value is typed in
+    s2 = float(data.getvalue('humidity')) #value is typed in
 except:
     s2 = None
 try:
-    s3 = int(data.getvalue('light')) #value is typed in 
+    s3 = float(data.getvalue('light')) #value is typed in 
 except:
     s3 = None
 try:
