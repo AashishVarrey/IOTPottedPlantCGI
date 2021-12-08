@@ -164,7 +164,7 @@ print("""
 <div style = "width:50%;height:300px;float:left; background-color:darkseagreen; text-align:center;padding-top:50px">
 <h3> Press to Water Plant </h3>
 <form action = "/cgi-bin/final.py" method="POST">
-<input type="submit" name="water" value = "1" style="padding: 30px 45px; background-color:MidnightBlue; color:white">
+<input type="submit" name="water" value = "1" style="padding: 30px 45px; background-color:MidnightBlue; color:MidnightBlue">
 </form>
 </div>
 
