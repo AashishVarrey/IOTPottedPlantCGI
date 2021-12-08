@@ -47,7 +47,7 @@ try:
 except:
     s5 = "notwater"
 #write if plant needs to be manually watered to text file
-with open('IOTFinal.txt','w') as f:
+with open('water.txt','w') as f:
   json.dump(s5,f)
 
 #generate html webpage
@@ -164,7 +164,7 @@ print("""
 <div style = "width:50%;height:300px;float:left; background-color:darkseagreen; text-align:center;padding-top:50px">
 <h3> Press to Water Plant </h3>
 <form action = "/cgi-bin/final.py" method="POST">
-<input type="submit" name="water" value = "Water Plant" style="padding: 30px 45px; background-color:MidnightBlue; color:white">
+<input type="submit" name="water" value = "1" style="padding: 30px 45px; background-color:MidnightBlue; color:white">
 </form>
 </div>
 
