@@ -19,9 +19,9 @@ for key in url:
   a[key] = json.loads(request)
 
 
-temp = int(a[1]['field1']) 
-humidity = int(a[2]['field2'])
-light = int(a[3]['field3'])
+temp = float(a[1]['field1']) 
+humidity = float(a[2]['field2'])
+light = float(a[3]['field3'])
 
 
 #get data from html form 
@@ -85,7 +85,7 @@ text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 """)
 
 #temp range +- 10 degrees celcius you're fine, else warning
-if isinstance(s1,int) and (temp > (s1+10) or temp < (s1-10)):
+if isinstance(s1,float) and (temp > (s1+10) or temp < (s1-10)):
   print("""
   <div style = "width:50%;height:300px; float:left; background-color:darkseagreen; text-align:center">
   <h3> Temperature </h3>
@@ -110,7 +110,7 @@ print("""
 """)
 
 #humidity range +- 10% you're fine, else warning
-if isinstance(s2,int) and (humidity > (s2+10) or humidity < (s2-10)):
+if isinstance(s2,float) and (humidity > (s2+10) or humidity < (s2-10)):
   print("""
   <div style = "width:50%;height:300px; float:left; background-color:darkseagreen; text-align:center;padding-top:50px">
   <h3> Humidity </h3>
@@ -143,7 +143,7 @@ Number of Hours of Sunlight Per Day: <br>
 """)
 
 #light range >= to requirements you're fine, else warning
-if isinstance(s3,int) and (light < s3):
+if isinstance(s3,float) and (light < s3):
   print("""
   <div style = "width:50%;height:300px; float:left; background-color:darkseagreen; text-align:center;padding-top:50px">
   <h3> Light Recieved </h3>
