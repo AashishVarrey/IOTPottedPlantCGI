@@ -43,7 +43,7 @@ try:
 except:
     s4 = None
 try:
-    s5 = data.getvalue('water') #value is water
+    s5 = data.getvalue('water') #value is 1
 except:
     s5 = "notwater"
 #write if plant needs to be manually watered to text file
