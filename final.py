@@ -48,7 +48,7 @@ except:
     s5 = "notwater"
 #write if plant needs to be manually watered to text file
 with open('water.txt','w') as f:
-  json.dump(s5,f)
+  f.write(s5)
 
 #generate html webpage
 print('Content-type: text/html\n\n')
