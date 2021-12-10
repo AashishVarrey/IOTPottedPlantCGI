@@ -44,8 +44,10 @@ except:
     s4 = None
 try:
     s5 = data.getvalue('water') #value is 1
+    s5 = str(s5)
 except:
     s5 = "notwater"
+    s5 = str(s5)
 #write if plant needs to be manually watered to text file
 with open('water.txt','w') as f:
   f.write(s5)
